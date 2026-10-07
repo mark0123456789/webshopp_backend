@@ -47,7 +47,7 @@ namespace Computer_shopp.Controllers
                 context.SaveChanges();
                 return StatusCode(200, new { message = "sikeres frissítés", Result = osystem });
             }
-            return StatusCode(404, new { message = "nem található a rendszer", Result = osystem });
+            return StatusCode(404, new { message = "sikertelen frissítés", Result = osystem });
         }
         [HttpDelete]
         public object DeleteOsystem([FromQuery] Guid id)
@@ -59,7 +59,7 @@ namespace Computer_shopp.Controllers
                 context.SaveChanges();
                 return StatusCode(204, new { message = "sikeres törlés", Result = osystem });
             }
-            return StatusCode(404, new { message = "nem található a rendszer", Result = osystem });
+            return StatusCode(404, new { message = "sikertelen törlés", Result = osystem });
         }
     }
 }
