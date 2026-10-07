@@ -49,5 +49,17 @@ namespace Computer_shopp.Controllers
             }
             return StatusCode(404, new { message = "nem található a rendszer", Result = osystem });
         }
+        [HttpDelete]
+        public object DeleteOsystem([FromQuery] Guid id)
+        {
+            var osystem = context.Osystems.Find(id);
+            if (osystem != null)
+            {
+                context.Osystems.Remove(osystem);
+                context.SaveChanges();
+                return StatusCode(204, new { message = "sikeres törlés", Result = osystem });
+            }
+            return StatusCode(404, new { message = "nem található a rendszer", Result = osystem });
+        }
     }
 }
