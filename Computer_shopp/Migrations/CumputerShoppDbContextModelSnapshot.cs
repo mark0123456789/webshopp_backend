@@ -19,6 +19,38 @@ namespace Computer_shopp.Migrations
                 .HasAnnotation("ProductVersion", "10.0.12")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
+            modelBuilder.Entity("Computer_shopp.modells.Computer", b =>
+                {
+                    b.Property<Guid>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(36)
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("Brand")
+                        .HasColumnType("varchar(30)");
+
+                    b.Property<DateTime>("CreatedTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<float>("Display")
+                        .HasColumnType("Float");
+
+                    b.Property<Guid?>("OsysId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("Type")
+                        .HasColumnType("varchar(40)");
+
+                    b.Property<int>("memory")
+                        .HasColumnType("int");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("OsysId");
+
+                    b.ToTable("Computers");
+                });
+
             modelBuilder.Entity("Computer_shopp.modells.Osystem", b =>
                 {
                     b.Property<Guid>("Id")
@@ -27,7 +59,6 @@ namespace Computer_shopp.Migrations
                         .HasColumnType("char(36)");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<DateTime>("RegisterTime")
@@ -42,6 +73,20 @@ namespace Computer_shopp.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Osystems");
+                });
+
+            modelBuilder.Entity("Computer_shopp.modells.Computer", b =>
+                {
+                    b.HasOne("Computer_shopp.modells.Osystem", "Osys")
+                        .WithMany("Computers")
+                        .HasForeignKey("OsysId");
+
+                    b.Navigation("Osys");
+                });
+
+            modelBuilder.Entity("Computer_shopp.modells.Osystem", b =>
+                {
+                    b.Navigation("Computers");
                 });
 #pragma warning restore 612, 618
         }
